@@ -34,11 +34,17 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/uploads/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                // 🔥 ADD THIS
+                //.authorizeHttpRequests(auth -> auth
+                   //     .requestMatchers("/api/auth/**", "/uploads/**").permitAll()
+                     //   .anyRequest().authenticated()
+               // )
+
+.authorizeHttpRequests(auth -> auth
+    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+    .requestMatchers("/api/auth/**", "/uploads/**").permitAll()
+    .anyRequest().authenticated()
+)
+                //  ADD THIS
                 .addFilterBefore(jwtAuthFilter,
                         org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 
