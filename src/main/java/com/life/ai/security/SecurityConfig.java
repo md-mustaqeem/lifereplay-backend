@@ -54,27 +54,64 @@ public class SecurityConfig {
 
     //React se connect karne ke liye
 
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//
+//        CorsConfiguration config = new CorsConfiguration();
+//
+//        //config.setAllowedOrigins(List.of("http://localhost:5173"));
+//
+//       // config.setAllowedOrigins(List.of(
+//        //        "http://localhost:5173",
+//        //        "https://lifereplay-frontend-x9fn.vercel.app"
+//        //));
+//
+//           config.setAllowedOriginPatterns(List.of(
+//           "http://localhost:5173",
+//           "https://*.vercel.app"
+//           ));
+//
+//
+//        config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+//        config.setAllowedHeaders(List.of("*"));
+//        config.setAllowCredentials(false);
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", config);
+//        return source;
+//    }
+
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
         CorsConfiguration config = new CorsConfiguration();
 
-        //config.setAllowedOrigins(List.of("http://localhost:5173"));
+        //  Exact URL daalo wildcard ki jagah
+        config.setAllowedOrigins(List.of(
+                "http://localhost:5173",
+                "http://localhost:3000",
+                "https://lifereplay-frontend-i2i7-8ka7ibg12-md-sm-projects.vercel.app"
+        ));
 
-       // config.setAllowedOrigins(List.of(
-        //        "http://localhost:5173",
-        //        "https://lifereplay-frontend-x9fn.vercel.app"
-        //));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 
-           config.setAllowedOriginPatterns(List.of(
-           "http://localhost:5173",
-           "https://*.vercel.app"
-           ));
+        //  Specific headers explicitly daalo
+        config.setAllowedHeaders(List.of(
+                "Authorization",
+                "Content-Type",
+                "Accept",
+                "Origin",
+                "X-Requested-With"
+        ));
 
+        // Response headers expose karo
+        config.setExposedHeaders(List.of("Authorization"));
 
-        config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
-        config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(false);
+
+        //  Preflight cache - baar baar OPTIONS na bheje browser
+        config.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
