@@ -49,10 +49,12 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(Arrays.asList(
+        // ✅ Pattern use karo - URL change hone pe code change nahi karna padega
+        config.setAllowedOriginPatterns(Arrays.asList(
                 "http://localhost:5173",
                 "http://localhost:3000",
-                "https://lifereplay-frontend-i2i7-8ka7ibg12-md-sm-projects.vercel.app"
+                "https://lifereplay-frontend-*.vercel.app",
+                "https://lifereplay-ai.vercel.app"
         ));
 
         config.setAllowedMethods(Arrays.asList(
