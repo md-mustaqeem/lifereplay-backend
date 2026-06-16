@@ -49,7 +49,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // ✅ Pattern use karo - URL change hone pe code change nahi karna padega
+
         config.setAllowedOriginPatterns(Arrays.asList(
                 "http://localhost:5173",
                 "http://localhost:3000",
